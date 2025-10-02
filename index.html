@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوت روابط واتساب - كلية التكنو</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(135deg, #1976D2, #004D40);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      text-align: center;
+      width: 90%;
+      max-width: 500px;
+      animation: fadeIn 0.8s ease;
+      box-sizing: border-box; 
+    }
+
+    h2 {
+      color: #1976D2;
+      margin-top: 0; 
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .input-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px; 
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    input, select {
+      padding: 12px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      outline: none;
+      transition: 0.3s;
+      font-size: 16px;
+      box-sizing: border-box; 
+      flex: 1 1 180px; 
+    }
+
+    input:focus, select:focus {
+      border-color: #1976D2;
+    }
+
+    button {
+      padding: 12px 25px;
+      background: #1976D2;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+      width: 100%; 
+      max-width: 250px; 
+    }
+
+    button:hover {
+      background: #0D47A1;
+    }
+
+    .result {
+      margin-top: 25px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #333;
+      min-height: 70px; 
+    }
+
+    .result a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 18px;
+      background: #25D366;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .result a:hover {
+      background: #128C7E;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+@media (max-width: 600px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h2 {
+        font-size: 20px; 
+      }
+
+      .input-group {
+        flex-direction: column; 
+        gap: 12px;
+      }
+
+      input, select {
+        width: 100%; 
+        flex: auto;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🔎 ابحث عن رابط مجموعة واتساب لمواد كلية التكنو</h2>
+    
+    <div class="input-group">
+      <input type="text" id="courseInput" placeholder="اكتب اسم المادة">
+      <select id="courseSelect" onchange="selectCourse()">
+        <option value="">اختر مادة</option>
+        <option value="قضايا">قضايا</option>
+        <option value="النظم الخبيرة ودعم القرار">النظم الخبيرة ودعم القرار</option>
+        <option value="خوارزميات">خوارزميات</option>
+        <option value="نظم الوسائط المتعددة">نظم الوسائط المتعددة</option>
+        <option value="الذكاء الاصطناعي">الذكاء الاصطناعي</option>
+        <option value="البرمجة بلغة مرئية 2">البرمجة بلغة مرئية 2</option>
+        <option value="أمن نظم المعلومات">أمن نظم المعلومات</option>
+        <option value="معمارية الحاسوب">معمارية الحاسوب</option>
+        <option value="مبادئ الإحصاء والإحتمالات">مبادئ الإحصاء والإحتمالات</option>
+        <option value="موضوعات خاصة">موضوعات خاصة</option>
+        <option value="شيئية 1">شيئية 1</option>
+        <option value="لغة برمجة 1">لغة برمجة 1</option>
+        <option value="سوفتوير 1">سوفتوير 1</option>
+        <option value="تفاعل الإنسان مع الحاسوب">تفاعل الإنسان مع الحاسوب</option>
+        <option value="تطوير البرمجيات">تطوير البرمجيات</option>
+        <option value="جبر خطي 1">جبر خطي 1</option>
+        <option value="البرمجة بلغة مرئية 1">البرمجة بلغة مرئية 1</option>
+         <option value="اساسيات علم بياناتاساسيات علم بيانات">اساسيات علم بيانات</option>
+         <option value="أساسيات في تكنولوجيا المعلومات">أساسيات في تكنولوجيا المعلومات </option>
+        <option value="ضع اسم الماده هنا">اخرى ... غير موجود في القائمة</option>
+      </select>
+    </div>
+
+    <button onclick="getLink()">بحث</button>
+    <div class="result" id="result"></div>
+
+    <div class="footer">By. <b>Mohammad RUM & Musab Al-Rayyani</b></div>
+  </div>
+
+  <script>
+    const courses = {
+        "نظم الوسائط المتعددة":"https://chat.whatsapp.com/CUWDB92arEr8agSCSB1rPz?mode=ems_copy_t",
+        "اساسيات علم بيانات":"https://chat.whatsapp.com/IF7o2r0lTSoD15ztWFDNHq?mode=ems_copy_t",
+        "أساسيات في تكنولوجيا المعلومات":"https://chat.whatsapp.com/JhvmCh16jL46tvWzeplQQ3?mode=ems_copy_t",
+                "النظم الخبيرة ودعم القرار":"https://chat.whatsapp.com/CUWDB92arEr8agSCSB1rPz?mode=ems_copy_t",
+    "قضايا": "https://chat.whatsapp.com/CzEzI8Ya8UaJix7TXwdTKN",
+      "خوارزميات": "https://chat.whatsapp.com/JQQnEm5YjU0HWht7d4LVXV",
+      "الذكاء الاصطناعي": "https://chat.whatsapp.com/JcRP75Qrbxu9XwYSYHdN6y",
+      "البرمجة بلغة مرئية 2": "https://chat.whatsapp.com/Eud7z99xqCNEi9RZ2ZssUW",
+      "أمن نظم المعلومات": "https://chat.whatsapp.com/HvIde4tZTm4L8x394aDxGb",
+      "معمارية الحاسوب": "https://chat.whatsapp.com/JHrUdtRvlkiHE2SrAC0htP",
+      "مبادئ الإحصاء والإحتمالات": "https://chat.whatsapp.com/KzkxEBZhSQPJhX1DiNUmem",
+      "موضوعات خاصة": "https://chat.whatsapp.com/BuLmbL4bxIAGR7ze7hZlXi",
+      "شيئية 1": "https://chat.whatsapp.com/CDSkNXpzvl5LoVmW56qWjU",
+      "لغة برمجة 1": "https://chat.whatsapp.com/LUbSeUWX8syCCSczsShrXd",
+      "سوفتوير 1": "https://chat.whatsapp.com/FSFl8VK1CukJONLeIwFd74",
+      "تفاعل الإنسان مع الحاسوب": "https://chat.whatsapp.com/FF8GdjLPd2mErjXgr2uUmC",
+      "تطوير البرمجيات": "https://chat.whatsapp.com/LQxxQCQXVG91O1JMMrlBdx",
+      "جبر خطي 1": "https://chat.whatsapp.com/BVshsGvRCe6HxvJJ1Q7e9a",
+      "البرمجة بلغة مرئية 1": "https://chat.whatsapp.com/GbXpXijqEGzF1oPbvt0t7C"
+    };
+
+    function selectCourse() {
+      const selected = document.getElementById("courseSelect").value;
+      if (selected) {
+        document.getElementById("courseInput").value = selected;
+      }
+    }
+
+    function getLink() {
+      const input = document.getElementById("courseInput").value.trim();
+      const resultDiv = document.getElementById("result");
+
+      if (courses[input]) {
+        resultDiv.innerHTML = `
+            رابط مجموعة <b>${input}</b>:
+          <br>
+          <a href="${courses[input]}" target="_blank">انضم الآن</a>
+        `;
+      } else {
+        resultDiv.innerHTML = `
+            لم أجد مادة بهذا الاسم.
+          <br> <br>
+          <a href="https://wa.me/962781329916?text=مرحبا%20اريد%20اضافة%20مادة%20(${encodeURIComponent(input)})%20الى%20قائمة%20المواد" target="_blank" style="background:#1976D2;">🚀 أرسل طلب للادمن</a>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>
