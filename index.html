@@ -3,236 +3,401 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>بوت روابط واتساب - كلية التكنو</title>
+  <title>روابط واتساب - كلية التكنو</title>
   <style>
-    body {
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      background: linear-gradient(135deg, #1976D2, #004D40);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+    :root {
+      --primary: #4776E6;
+      --secondary: #8E54E9;
+      --bg: #f0f2f5;
+      --text: #333;
     }
 
-    .container {
-      background: #fff;
-      border-radius: 20px;
-      padding: 40px 30px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-      text-align: center;
-      width: 90%;
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .app-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 30px 20px;
+      width: 100%;
       max-width: 500px;
-      animation: fadeIn 0.8s ease;
-      box-sizing: border-box; 
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      animation: slideUp 0.6s ease-out;
+      margin-bottom: 20px;
     }
 
     h2 {
-      color: #1976D2;
-      margin-top: 0; 
-      margin-bottom: 20px;
-      font-size: 24px;
+      text-align: center;
+      color: var(--primary);
+      margin-top: 0;
+      font-size: 22px;
+      font-weight: 800;
     }
 
-    .input-group {
-      display: flex;
-      justify-content: center;
-      gap: 10px; 
-      flex-wrap: wrap;
-      margin-bottom: 10px;
+    /* شريط البحث الذكي */
+    .search-box {
+      position: relative;
+      margin-bottom: 25px;
     }
 
-    input, select {
-      padding: 12px;
-      border: 2px solid #ccc;
-      border-radius: 10px;
-      outline: none;
-      transition: 0.3s;
+    .search-box input {
+      width: 100%;
+      padding: 16px 45px 16px 16px;
       font-size: 16px;
-      box-sizing: border-box; 
-      flex: 1 1 180px; 
+      border: 2px solid #e1e1e1;
+      border-radius: 16px;
+      outline: none;
+      transition: all 0.3s;
+      background: #fff;
     }
 
-    input:focus, select:focus {
-      border-color: #1976D2;
+    .search-box input:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 15px rgba(142, 84, 233, 0.2);
     }
 
-    button {
-      padding: 12px 25px;
-      background: #1976D2;
+    .search-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: #888;
+    }
+
+    /* قائمة النتائج */
+    .results-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+
+    /* تخصيص شريط التمرير */
+    .results-container::-webkit-scrollbar { width: 6px; }
+    .results-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+
+    .course-card {
+      background: #fff;
+      border: 1px solid #eee;
+      padding: 15px;
+      border-radius: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      border-color: var(--primary);
+    }
+
+    .course-name {
+      font-weight: bold;
+      color: var(--text);
+      font-size: 15px;
+      flex: 1;
+    }
+
+    .join-btn {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+      margin-right: 10px;
+    }
+
+    .join-btn:hover { opacity: 0.8; }
+
+    /* رسالة عدم وجود نتائج */
+    .no-results {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+    }
+    .request-btn {
+      display: inline-block;
+      margin-top: 10px;
+      background: var(--primary);
       color: #fff;
+      padding: 10px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* لوحة الأدمن */
+    #admin-section {
+      display: none;
+      background: #fff;
+      border: 2px dashed var(--secondary);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .admin-input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .save-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--secondary);
+      color: white;
       border: none;
       border-radius: 10px;
       font-size: 16px;
       cursor: pointer;
-      margin-top: 10px;
-      transition: 0.3s;
-      width: 100%; 
-      max-width: 250px; 
-    }
-
-    button:hover {
-      background: #0D47A1;
-    }
-
-    .result {
-      margin-top: 25px;
       font-weight: bold;
-      font-size: 18px;
-      color: #333;
-      min-height: 70px; 
     }
 
-    .result a {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 18px;
-      background: #25D366;
-      color: #fff;
+    .admin-list { margin-top: 15px; }
+    .admin-item {
+      display: flex;
+      justify-content: space-between;
+      background: #f9f9f9;
+      padding: 10px;
       border-radius: 8px;
-      text-decoration: none;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    .del-btn { background: #ff4757; color: #fff; border: none; padding: 5px 10px; border-radius: 6px; cursor: pointer; }
+
+    /* التوقيع الشخصي والفوتر */
+    .footer {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+      color: rgba(255,255,255,0.9);
+      font-size: 14px;
+    }
+
+    .creator-badge {
+      background: rgba(0,0,0,0.2);
+      padding: 8px 15px;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .creator-badge span { color: #ffd700; }
+
+    .admin-trigger {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: rgba(255,255,255,0.7);
       transition: 0.3s;
     }
+    .admin-trigger:hover { transform: rotate(90deg); color: white; }
 
-    .result a:hover {
-      background: #128C7E;
+    /* الحركات (Animations) */
+    @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* تحسينات الشاشات الصغيرة جداً */
+    @media (max-width: 400px) {
+      .course-card { flex-direction: column; text-align: center; gap: 10px; }
+      .join-btn { width: 100%; margin: 0; }
     }
-
-    .footer {
-      margin-top: 30px;
-      font-size: 14px;
-      color: #666;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-@media (max-width: 600px) {
-      .container {
-        padding: 30px 20px;
-      }
-
-      h2 {
-        font-size: 20px; 
-      }
-
-      .input-group {
-        flex-direction: column; 
-        gap: 12px;
-      }
-
-      input, select {
-        width: 100%; 
-        flex: auto;
-      }
-    }
-
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>🔎 ابحث عن رابط مجموعة واتساب لمواد كلية التكنو</h2>
-    
-    <div class="input-group">
-      <input type="text" id="courseInput" placeholder="اكتب اسم المادة">
-      <select id="courseSelect" onchange="selectCourse()">
-        <option value="">اختر مادة</option>
-        <option value="قضايا">قضايا</option>
-<option value="مقدمة في شبكات الحاسوب">مقدمة في شبكات الحاسوب</option>
-<option value="هندسة بيانات">هندسة بيانات</option>
-<option value="تراكيب بيانات">تراكيب البيانات</option>
-<option value="مقدمة في امن شبكات">مقدمة في امن الشبكات</option>
-<option value="نظم قواعد البيانات">نظم قواعد البيانات</option>
-        <option value="النظم الخبيرة ودعم القرار">النظم الخبيرة ودعم القرار</option>
-        <option value="خوارزميات">خوارزميات</option>
-        <option value="نظم الوسائط المتعددة">نظم الوسائط المتعددة</option>
-        <option value="الذكاء الاصطناعي">الذكاء الاصطناعي</option>
-        <option value="البرمجة بلغة مرئية 2">البرمجة بلغة مرئية 2</option>
-        <option value="أمن نظم المعلومات">أمن نظم المعلومات</option>
-<option value="شيئية 1 د.عاهد">شيئية 1 د.عاهد</option>
-<option value="استرجاع معلومات">استرجاع معلومات</option>
 
-        <option value="معمارية الحاسوب">معمارية الحاسوب</option>
-        <option value="مبادئ الإحصاء والإحتمالات">مبادئ الإحصاء والإحتمالات</option>
-        <option value="موضوعات خاصة">موضوعات خاصة</option>
-        <option value="شيئية 1">شيئية 1</option>
-<option value="إدارة مشاريع">إدارة مشاريع</option>
-        <option value="لغة برمجة 1">لغة برمجة 1</option>
-        <option value="سوفتوير 1">سوفتوير 1</option>
-        <option value="تفاعل الإنسان مع الحاسوب">تفاعل الإنسان مع الحاسوب</option>
-        <option value="تطوير البرمجيات">تطوير البرمجيات</option>
-        <option value="جبر خطي 1">جبر خطي 1</option>
-        <option value="البرمجة بلغة مرئية 1">البرمجة بلغة مرئية 1</option>
-         <option value="اساسيات علم بياناتاساسيات علم بيانات">اساسيات علم بيانات</option>
-         <option value="أساسيات في تكنولوجيا المعلومات">أساسيات في تكنولوجيا المعلومات </option>
-        <option value="ضع اسم الماده هنا">اخرى ... غير موجود في القائمة</option>
-      </select>
+  <div class="app-container">
+    <h2>📚 دليل مواد كلية التكنو</h2>
+    
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="ابحث عن اسم المادة هنا..." onkeyup="handleSearch()">
     </div>
 
-    <button onclick="getLink()">بحث</button>
-    <div class="result" id="result"></div>
+    <div class="results-container" id="resultsList">
+      <div class="no-results">⏳ جاري الاتصال بقاعدة البيانات...</div>
+    </div>
 
-    <div class="footer">By. <b>Mohammad RUM</b></div>
+    <div id="admin-section">
+      <h3 style="margin-top: 0; color: var(--secondary); text-align: center;">⚙️ إدارة الجروبات</h3>
+      <input type="text" id="newCourseName" class="admin-input" placeholder="اسم المادة">
+      <input type="url" id="newCourseLink" class="admin-input" placeholder="رابط جروب الواتساب">
+      <button class="save-btn" onclick="addOrUpdateCourse()">حفظ المادة</button>
+      
+      <div class="admin-list" id="adminList"></div>
+    </div>
   </div>
 
-  <script>
-    const courses = {
-"مقدمة في شبكات الحاسوب":"https://chat.whatsapp.com/Cc0oRCYOvTG502B8Yp3w9a?mode=ems_copy_t",
-        "نظم الوسائط المتعددة":"https://chat.whatsapp.com/CUWDB92arEr8agSCSB1rPz?mode=ems_copy_t",
-"نظم قواعد البيانات":"https://chat.whatsapp.com/KEAdguKsxQ5Eq4ioAb1mwN?mode=ems_copy_t",
-        "اساسيات علم بيانات":"https://chat.whatsapp.com/IF7o2r0lTSoD15ztWFDNHq?mode=ems_copy_t",
-"شيئية 1 د.عاهد":"https://chat.whatsapp.com/Lw3JyDdUeQmEeGiOiG0Glg?mode=ems_copy_t",
-"استرجاع معلومات":"https://chat.whatsapp.com/FUk5efHHJ3LBA27Nl2fAra?mode=ems_copy_t",
-"إدارة مشاريع":"https://chat.whatsapp.com/LewDQWGNHrOEF4qwV8kDcO?mode=ems_copy_t",
-        "أساسيات في تكنولوجيا المعلومات":"https://chat.whatsapp.com/JhvmCh16jL46tvWzeplQQ3?mode=ems_copy_t",
-                "النظم الخبيرة ودعم القرار":"https://chat.whatsapp.com/CUWDB92arEr8agSCSB1rPz?mode=ems_copy_t",
-    "قضايا": "https://chat.whatsapp.com/CzEzI8Ya8UaJix7TXwdTKN",
-      "خوارزميات": "https://chat.whatsapp.com/JQQnEm5YjU0HWht7d4LVXV",
-      "الذكاء الاصطناعي": "https://chat.whatsapp.com/JcRP75Qrbxu9XwYSYHdN6y",
-      "البرمجة بلغة مرئية 2": "https://chat.whatsapp.com/Eud7z99xqCNEi9RZ2ZssUW",
-      "أمن نظم المعلومات": "https://chat.whatsapp.com/HvIde4tZTm4L8x394aDxGb",
-      "معمارية الحاسوب": "https://chat.whatsapp.com/JHrUdtRvlkiHE2SrAC0htP",
-      "مبادئ الإحصاء والإحتمالات": "https://chat.whatsapp.com/KzkxEBZhSQPJhX1DiNUmem",
-      "موضوعات خاصة": "https://chat.whatsapp.com/BuLmbL4bxIAGR7ze7hZlXi",
-      "شيئية 1": "https://chat.whatsapp.com/CDSkNXpzvl5LoVmW56qWjU",
-"هندسة بيانات":"https://chat.whatsapp.com/IUZLxT9sM7k1vsPDIdAUTj?mode=ems_copy_t",
-"تراكيب بيانات":"https://chat.whatsapp.com/FNaKcicAmqQA6HzChRBdsY?mode=ems_copy_t",
-"مقدمة في امن شبكات":"https://chat.whatsapp.com/GijzjH5OD5YAVECc41rtwL?mode=ems_copy_t",
-      "لغة برمجة 1": "https://chat.whatsapp.com/LUbSeUWX8syCCSczsShrXd",
-      "سوفتوير 1": "https://chat.whatsapp.com/FSFl8VK1CukJONLeIwFd74",
-      "تفاعل الإنسان مع الحاسوب": "https://chat.whatsapp.com/FF8GdjLPd2mErjXgr2uUmC",
-      "تطوير البرمجيات": "https://chat.whatsapp.com/LQxxQCQXVG91O1JMMrlBdx",
-      "جبر خطي 1": "https://chat.whatsapp.com/BVshsGvRCe6HxvJJ1Q7e9a",
-      "البرمجة بلغة مرئية 1": "https://chat.whatsapp.com/GbXpXijqEGzF1oPbvt0t7C"
-    };
+  <div class="footer">
+    <div class="creator-badge">Developed by <span>MOHAMMAD RUM</span></div>
+    <button class="admin-trigger" onclick="toggleAdmin()">⚙️</button>
+  </div>
 
-    function selectCourse() {
-      const selected = document.getElementById("courseSelect").value;
-      if (selected) {
-        document.getElementById("courseInput").value = selected;
+  <script type="module">
+    import { neon } from 'https://esm.sh/@neondatabase/serverless';
+
+    // الرابط الخاص بقاعدة بياناتك في Neon
+    const DATABASE_URL = "postgresql://neondb_owner:npg_YOi4l2uLocSN@ep-gentle-wind-aifr1t59-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require";
+    const sql = neon(DATABASE_URL);
+    
+    let allCourses = [];
+
+    // 1. جلب البيانات عند فتح الصفحة
+    window.fetchCourses = async function() {
+      try {
+        const rows = await sql`SELECT name, link FROM courses ORDER BY name ASC`;
+        allCourses = rows;
+        renderResults(allCourses); // عرض كل المواد مبدئياً
+        if(document.getElementById('admin-section').style.display === 'block') renderAdminList();
+      } catch (error) {
+        console.error(error);
+        document.getElementById("resultsList").innerHTML = `<div class="no-results" style="color:red;">❌ تعذر الاتصال بقاعدة البيانات. تأكد من إعدادات Neon.</div>`;
       }
     }
 
-    function getLink() {
-      const input = document.getElementById("courseInput").value.trim();
-      const resultDiv = document.getElementById("result");
+    // 2. البحث الذكي (يتم تنفيذه مع كل حرف يكتبه المستخدم)
+    window.handleSearch = function() {
+      const query = document.getElementById("searchInput").value.trim().toLowerCase();
+      
+      if (query === "") {
+        renderResults(allCourses);
+        return;
+      }
 
-      if (courses[input]) {
-        resultDiv.innerHTML = `
-            رابط مجموعة <b>${input}</b>:
-          <br>
-          <a href="${courses[input]}" target="_blank">انضم الآن</a>
-        `;
+      // تصفية المواد التي تحتوي على الحروف المكتوبة
+      const filtered = allCourses.filter(course => course.name.toLowerCase().includes(query));
+      
+      if (filtered.length > 0) {
+        renderResults(filtered);
       } else {
-        resultDiv.innerHTML = `
-            لم أجد مادة بهذا الاسم.
-          <br> <br>
-          <a href="https://wa.me/962787260414?text=مرحبا%20اريد%20اضافة%20مادة%20(${encodeURIComponent(input)})%20الى%20قائمة%20المواد" target="_blank" style="background:#1976D2;">🚀 أرسل طلب للادمن</a>
+        // إذا لم يجد شيئاً، يظهر زر إرسال رسالة لك
+        document.getElementById("resultsList").innerHTML = `
+          <div class="no-results">
+            لم أجد مادة بهذا الاسم 😥<br>
+            <a href="https://wa.me/962787260414?text=مرحبا%20اريد%20اضافة%20مادة%20(${encodeURIComponent(query)})" target="_blank" class="request-btn">🚀 أرسل طلب إضافة للآدمن</a>
+          </div>
         `;
       }
     }
+
+    // 3. عرض بطاقات المواد للطلاب
+    function renderResults(coursesArray) {
+      const container = document.getElementById("resultsList");
+      container.innerHTML = "";
+      
+      if(coursesArray.length === 0) {
+          container.innerHTML = `<div class="no-results">لا يوجد مواد مضافة حتى الآن.</div>`;
+          return;
+      }
+
+      coursesArray.forEach(course => {
+        container.innerHTML += `
+          <div class="course-card">
+            <div class="course-name">${course.name}</div>
+            <a href="${course.link}" target="_blank" class="join-btn">انضم للجروب</a>
+          </div>
+        `;
+      });
+    }
+
+    // ==========================================
+    // قسم الإدارة
+    // ==========================================
+    
+    window.toggleAdmin = function() {
+      const adminSec = document.getElementById("admin-section");
+      if (adminSec.style.display === "block") {
+        adminSec.style.display = "none";
+        return;
+      }
+      const pass = prompt("أدخل كلمة مرور الأدمن:");
+      if (pass === "MOHA12022") {
+        adminSec.style.display = "block";
+        renderAdminList();
+      } else if (pass !== null) {
+        alert("كلمة المرور غير صحيحة!");
+      }
+    }
+
+    function renderAdminList() {
+      const list = document.getElementById("adminList");
+      list.innerHTML = "";
+      allCourses.forEach(course => {
+        list.innerHTML += `
+          <div class="admin-item">
+            <span>${course.name}</span>
+            <button class="del-btn" onclick="deleteCourse('${course.name}')">حذف</button>
+          </div>
+        `;
+      });
+    }
+
+    window.addOrUpdateCourse = async function() {
+      const name = document.getElementById("newCourseName").value.trim();
+      const link = document.getElementById("newCourseLink").value.trim();
+      if (!name || !link) return alert("الرجاء إدخال اسم المادة والرابط!");
+
+      const btn = document.querySelector(".save-btn");
+      btn.innerText = "⏳ جاري الحفظ...";
+      
+      try {
+        await sql`INSERT INTO courses (name, link) VALUES (${name}, ${link}) ON CONFLICT (name) DO UPDATE SET link = EXCLUDED.link`;
+        document.getElementById("newCourseName").value = '';
+        document.getElementById("newCourseLink").value = '';
+        await window.fetchCourses(); // تحديث القوائم
+        document.getElementById("searchInput").value = ''; // تفريغ البحث
+      } catch (error) {
+        alert("حدث خطأ أثناء الحفظ!");
+      } finally {
+        btn.innerText = "حفظ المادة";
+      }
+    }
+
+    window.deleteCourse = async function(courseName) {
+      if (!confirm(`حذف مادة ${courseName}؟`)) return;
+      try {
+        await sql`DELETE FROM courses WHERE name = ${courseName}`;
+        await window.fetchCourses();
+      } catch (error) {
+        alert("حدث خطأ أثناء الحذف!");
+      }
+    }
+
+    // تشغيل التطبيق
+    window.onload = window.fetchCourses;
   </script>
 </body>
 </html>
