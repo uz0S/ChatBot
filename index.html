@@ -1,53 +1,68 @@
+إليك النسخة المطورة والمصممة بأسلوب رسمي، احترافي، وأنيق جداً.
+قمت بإضافة خط عربي راقٍ جداً (Tajawal) مخصص للمنصات الرسمية، وتغيير الألوان لتصبح ألواناً أكاديمية تعكس الثقة (تدرجات الأزرق الملكي والفضي). كما قمت بتعديل المصطلحات لتصبح رسمية (مثل: "المساق" بدلاً من "المادة"، و"المجموعة" بدلاً من "الجروب").
+انسخ هذا الكود واستبدله بالكامل:
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>روابط واتساب - كلية التكنو</title>
+  <title>الدليل الأكاديمي - كلية تكنولوجيا المعلومات</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #4776E6;
-      --secondary: #8E54E9;
-      --bg: #f0f2f5;
-      --text: #333;
+      --primary: #0F2027;
+      --secondary: #203A43;
+      --accent: #2C5364;
+      --highlight: #2980B9;
+      --text-dark: #2C3E50;
+      --bg-card: rgba(255, 255, 255, 0.98);
     }
 
     * {
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Tajawal', sans-serif;
     }
 
     body {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
       margin: 0;
       padding: 20px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
     }
 
     .app-container {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-radius: 24px;
-      padding: 30px 20px;
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 35px 25px;
       width: 100%;
-      max-width: 500px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-      animation: slideUp 0.6s ease-out;
-      margin-bottom: 20px;
+      max-width: 550px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-bottom: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     h2 {
       text-align: center;
-      color: var(--primary);
+      color: var(--text-dark);
       margin-top: 0;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 800;
+      letter-spacing: 0.5px;
     }
 
-    /* شريط البحث الذكي */
+    .subtitle {
+      text-align: center;
+      color: #7F8C8D;
+      font-size: 14px;
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+
     .search-box {
       position: relative;
       margin-bottom: 25px;
@@ -55,207 +70,260 @@
 
     .search-box input {
       width: 100%;
-      padding: 16px 45px 16px 16px;
+      padding: 18px 50px 18px 20px;
       font-size: 16px;
-      border: 2px solid #e1e1e1;
-      border-radius: 16px;
+      font-weight: 500;
+      border: 2px solid #EAECEE;
+      border-radius: 14px;
       outline: none;
-      transition: all 0.3s;
-      background: #fff;
+      transition: all 0.3s ease;
+      background: #F8F9FA;
+      color: var(--text-dark);
     }
 
     .search-box input:focus {
-      border-color: var(--secondary);
-      box-shadow: 0 0 15px rgba(142, 84, 233, 0.2);
+      border-color: var(--highlight);
+      background: #FFF;
+      box-shadow: 0 0 20px rgba(41, 128, 185, 0.15);
+    }
+
+    .search-box input::placeholder {
+      color: #A6ACAF;
     }
 
     .search-icon {
       position: absolute;
-      right: 15px;
+      right: 18px;
       top: 50%;
       transform: translateY(-50%);
       font-size: 20px;
-      color: #888;
+      color: var(--highlight);
     }
 
-    /* قائمة النتائج */
     .results-container {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      max-height: 400px;
+      gap: 14px;
+      max-height: 420px;
       overflow-y: auto;
       padding-right: 5px;
     }
 
-    /* تخصيص شريط التمرير */
-    .results-container::-webkit-scrollbar { width: 6px; }
-    .results-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+    .results-container::-webkit-scrollbar { width: 5px; }
+    .results-container::-webkit-scrollbar-thumb { background: #BDC3C7; border-radius: 10px; }
 
     .course-card {
-      background: #fff;
-      border: 1px solid #eee;
-      padding: 15px;
-      border-radius: 16px;
+      background: #FFF;
+      border: 1px solid #F2F3F4;
+      padding: 16px 20px;
+      border-radius: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.3s ease;
       animation: fadeIn 0.4s ease;
+      border-right: 4px solid var(--highlight);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
 
     .course-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-      border-color: var(--primary);
+      transform: translateX(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.08);
+      border-right-color: var(--accent);
     }
 
     .course-name {
-      font-weight: bold;
-      color: var(--text);
-      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      font-size: 16px;
       flex: 1;
     }
 
     .join-btn {
-      background: linear-gradient(135deg, #25D366, #128C7E);
+      background: var(--highlight);
       color: white;
       text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 12px;
+      padding: 10px 20px;
+      border-radius: 10px;
       font-size: 14px;
-      font-weight: bold;
-      transition: opacity 0.3s;
+      font-weight: 700;
+      transition: all 0.3s;
       white-space: nowrap;
-      margin-right: 10px;
+      margin-right: 15px;
+      box-shadow: 0 4px 10px rgba(41, 128, 185, 0.2);
     }
 
-    .join-btn:hover { opacity: 0.8; }
+    .join-btn:hover { 
+      background: #2471A3;
+      transform: translateY(-2px);
+    }
 
-    /* رسالة عدم وجود نتائج */
     .no-results {
       text-align: center;
-      padding: 20px;
-      color: #666;
-    }
-    .request-btn {
-      display: inline-block;
-      margin-top: 10px;
-      background: var(--primary);
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
+      padding: 30px 10px;
+      color: #7F8C8D;
+      font-size: 15px;
+      font-weight: 500;
     }
 
-    /* لوحة الأدمن */
+    .request-btn {
+      display: inline-block;
+      margin-top: 15px;
+      background: #34495E;
+      color: #FFF;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: background 0.3s;
+    }
+
+    .request-btn:hover { background: #2C3E50; }
+
     #admin-section {
       display: none;
-      background: #fff;
-      border: 2px dashed var(--secondary);
-      border-radius: 16px;
-      padding: 20px;
-      margin-top: 20px;
+      background: #F8F9FA;
+      border: 1px solid #EAECEE;
+      border-radius: 14px;
+      padding: 25px;
+      margin-top: 25px;
       animation: fadeIn 0.4s ease;
+    }
+
+    .admin-title {
+      margin-top: 0;
+      color: var(--text-dark);
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      border-bottom: 2px solid #EAECEE;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .admin-input {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px solid #D5D8DC;
       border-radius: 10px;
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .admin-input:focus {
+      outline: none;
+      border-color: var(--highlight);
     }
 
     .save-btn {
       width: 100%;
-      padding: 12px;
-      background: var(--secondary);
+      padding: 14px;
+      background: var(--text-dark);
       color: white;
       border: none;
       border-radius: 10px;
       font-size: 16px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 700;
+      transition: background 0.3s;
     }
 
-    .admin-list { margin-top: 15px; }
+    .save-btn:hover { background: #1A252F; }
+
+    .admin-list { margin-top: 20px; }
+
     .admin-item {
       display: flex;
       justify-content: space-between;
-      background: #f9f9f9;
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      font-size: 14px;
+      align-items: center;
+      background: #FFF;
+      padding: 12px 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      border: 1px solid #EAECEE;
     }
-    .del-btn { background: #ff4757; color: #fff; border: none; padding: 5px 10px; border-radius: 6px; cursor: pointer; }
 
-    /* التوقيع الشخصي والفوتر */
+    .del-btn { 
+      background: #E74C3C; 
+      color: #FFF; 
+      border: none; 
+      padding: 8px 15px; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      font-weight: 700;
+      font-size: 13px;
+    }
+
     .footer {
       width: 100%;
-      max-width: 500px;
+      max-width: 550px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 10px;
-      color: rgba(255,255,255,0.9);
+      padding: 0 15px;
+      color: rgba(255,255,255,0.8);
       font-size: 14px;
     }
 
     .creator-badge {
-      background: rgba(0,0,0,0.2);
-      padding: 8px 15px;
-      border-radius: 20px;
-      backdrop-filter: blur(5px);
-      font-weight: bold;
-      letter-spacing: 1px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
     }
 
-    .creator-badge span { color: #ffd700; }
+    .creator-badge span { 
+      color: #F1C40F; 
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
 
     .admin-trigger {
       background: none;
       border: none;
-      font-size: 20px;
+      font-size: 22px;
       cursor: pointer;
-      color: rgba(255,255,255,0.7);
-      transition: 0.3s;
+      color: rgba(255,255,255,0.6);
+      transition: all 0.4s ease;
     }
-    .admin-trigger:hover { transform: rotate(90deg); color: white; }
 
-    /* الحركات (Animations) */
-    @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .admin-trigger:hover { 
+      transform: rotate(180deg); 
+      color: #FFF; 
+    }
+
+    @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    /* تحسينات الشاشات الصغيرة جداً */
-    @media (max-width: 400px) {
-      .course-card { flex-direction: column; text-align: center; gap: 10px; }
+    @media (max-width: 450px) {
+      .course-card { flex-direction: column; text-align: center; gap: 15px; border-right: none; border-top: 4px solid var(--highlight); }
       .join-btn { width: 100%; margin: 0; }
+      .search-box input { padding-right: 45px; }
+      h2 { font-size: 20px; }
     }
   </style>
 </head>
 <body>
 
   <div class="app-container">
-    <h2>📚 دليل مواد كلية التكنو</h2>
+    <h2>الدليل الأكاديمي لمجموعات التواصل</h2>
+    <div class="subtitle">كلية تكنولوجيا المعلومات</div>
     
     <div class="search-box">
       <span class="search-icon">🔍</span>
-      <input type="text" id="searchInput" placeholder="ابحث عن اسم المادة هنا..." onkeyup="handleSearch()">
+      <input type="text" id="searchInput" placeholder="الرجاء إدخال اسم المساق للبحث..." onkeyup="handleSearch()">
     </div>
 
     <div class="results-container" id="resultsList">
-      <div class="no-results">⏳ جاري الاتصال بقاعدة البيانات...</div>
+      <div class="no-results">جاري الاتصال بقاعدة البيانات...</div>
     </div>
 
     <div id="admin-section">
-      <h3 style="margin-top: 0; color: var(--secondary); text-align: center;">⚙️ إدارة الجروبات</h3>
-      <input type="text" id="newCourseName" class="admin-input" placeholder="اسم المادة">
-      <input type="url" id="newCourseLink" class="admin-input" placeholder="رابط جروب الواتساب">
-      <button class="save-btn" onclick="addOrUpdateCourse()">حفظ المادة</button>
+      <div class="admin-title">لوحة تحكم الإدارة</div>
+      <input type="text" id="newCourseName" class="admin-input" placeholder="اسم المساق الأكاديمي">
+      <input type="url" id="newCourseLink" class="admin-input" placeholder="رابط مجموعة التواصل">
+      <button class="save-btn" onclick="addOrUpdateCourse()">حفظ بيانات المساق</button>
       
       <div class="admin-list" id="adminList"></div>
     </div>
@@ -269,26 +337,22 @@
   <script type="module">
     import { neon } from 'https://esm.sh/@neondatabase/serverless';
 
-    // الرابط الخاص بقاعدة بياناتك في Neon
     const DATABASE_URL = "postgresql://neondb_owner:npg_YOi4l2uLocSN@ep-gentle-wind-aifr1t59-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require";
     const sql = neon(DATABASE_URL);
     
     let allCourses = [];
 
-    // 1. جلب البيانات عند فتح الصفحة
     window.fetchCourses = async function() {
       try {
         const rows = await sql`SELECT name, link FROM courses ORDER BY name ASC`;
         allCourses = rows;
-        renderResults(allCourses); // عرض كل المواد مبدئياً
+        renderResults(allCourses);
         if(document.getElementById('admin-section').style.display === 'block') renderAdminList();
       } catch (error) {
-        console.error(error);
-        document.getElementById("resultsList").innerHTML = `<div class="no-results" style="color:red;">❌ تعذر الاتصال بقاعدة البيانات. تأكد من إعدادات Neon.</div>`;
+        document.getElementById("resultsList").innerHTML = `<div class="no-results" style="color:#E74C3C;">عذراً، تعذر الاتصال بقاعدة البيانات.</div>`;
       }
     }
 
-    // 2. البحث الذكي (يتم تنفيذه مع كل حرف يكتبه المستخدم)
     window.handleSearch = function() {
       const query = document.getElementById("searchInput").value.trim().toLowerCase();
       
@@ -297,29 +361,26 @@
         return;
       }
 
-      // تصفية المواد التي تحتوي على الحروف المكتوبة
       const filtered = allCourses.filter(course => course.name.toLowerCase().includes(query));
       
       if (filtered.length > 0) {
         renderResults(filtered);
       } else {
-        // إذا لم يجد شيئاً، يظهر زر إرسال رسالة لك
         document.getElementById("resultsList").innerHTML = `
           <div class="no-results">
-            لم أجد مادة بهذا الاسم 😥<br>
-            <a href="https://wa.me/962787260414?text=مرحبا%20اريد%20اضافة%20مادة%20(${encodeURIComponent(query)})" target="_blank" class="request-btn">🚀 أرسل طلب إضافة للآدمن</a>
+            لم يتم العثور على مساق بهذا الاسم.<br>
+            <a href="https://wa.me/962787260414?text=مرحباً،%20أرغب%20بإضافة%20مساق%20(${encodeURIComponent(query)})%20إلى%20الدليل" target="_blank" class="request-btn">تقديم طلب إضافة مساق للإدارة</a>
           </div>
         `;
       }
     }
 
-    // 3. عرض بطاقات المواد للطلاب
     function renderResults(coursesArray) {
       const container = document.getElementById("resultsList");
       container.innerHTML = "";
       
       if(coursesArray.length === 0) {
-          container.innerHTML = `<div class="no-results">لا يوجد مواد مضافة حتى الآن.</div>`;
+          container.innerHTML = `<div class="no-results">لا يوجد مساقات مدرجة حتى الآن.</div>`;
           return;
       }
 
@@ -327,28 +388,24 @@
         container.innerHTML += `
           <div class="course-card">
             <div class="course-name">${course.name}</div>
-            <a href="${course.link}" target="_blank" class="join-btn">انضم للجروب</a>
+            <a href="${course.link}" target="_blank" class="join-btn">الانضمام للمجموعة</a>
           </div>
         `;
       });
     }
 
-    // ==========================================
-    // قسم الإدارة
-    // ==========================================
-    
     window.toggleAdmin = function() {
       const adminSec = document.getElementById("admin-section");
       if (adminSec.style.display === "block") {
         adminSec.style.display = "none";
         return;
       }
-      const pass = prompt("أدخل كلمة مرور الأدمن:");
+      const pass = prompt("الرجاء إدخال رمز المرور الخاص بالإدارة:");
       if (pass === "MOHA12022") {
         adminSec.style.display = "block";
         renderAdminList();
       } else if (pass !== null) {
-        alert("كلمة المرور غير صحيحة!");
+        alert("رمز المرور غير صحيح.");
       }
     }
 
@@ -368,36 +425,36 @@
     window.addOrUpdateCourse = async function() {
       const name = document.getElementById("newCourseName").value.trim();
       const link = document.getElementById("newCourseLink").value.trim();
-      if (!name || !link) return alert("الرجاء إدخال اسم المادة والرابط!");
+      if (!name || !link) return alert("الرجاء إدخال البيانات المطلوبة كاملة.");
 
       const btn = document.querySelector(".save-btn");
-      btn.innerText = "⏳ جاري الحفظ...";
+      btn.innerText = "جاري تحديث البيانات...";
       
       try {
         await sql`INSERT INTO courses (name, link) VALUES (${name}, ${link}) ON CONFLICT (name) DO UPDATE SET link = EXCLUDED.link`;
         document.getElementById("newCourseName").value = '';
         document.getElementById("newCourseLink").value = '';
-        await window.fetchCourses(); // تحديث القوائم
-        document.getElementById("searchInput").value = ''; // تفريغ البحث
+        await window.fetchCourses();
+        document.getElementById("searchInput").value = '';
       } catch (error) {
-        alert("حدث خطأ أثناء الحفظ!");
+        alert("حدث خطأ أثناء حفظ البيانات.");
       } finally {
-        btn.innerText = "حفظ المادة";
+        btn.innerText = "حفظ بيانات المساق";
       }
     }
 
     window.deleteCourse = async function(courseName) {
-      if (!confirm(`حذف مادة ${courseName}؟`)) return;
+      if (!confirm(`هل أنت متأكد من حذف مساق: ${courseName}؟`)) return;
       try {
         await sql`DELETE FROM courses WHERE name = ${courseName}`;
         await window.fetchCourses();
       } catch (error) {
-        alert("حدث خطأ أثناء الحذف!");
+        alert("حدث خطأ أثناء الحذف.");
       }
     }
 
-    // تشغيل التطبيق
     window.onload = window.fetchCourses;
   </script>
 </body>
 </html>
+
