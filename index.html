@@ -7,304 +7,127 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #0F2027;
-      --secondary: #203A43;
-      --accent: #2C5364;
-      --highlight: #2980B9;
-      --text-dark: #2C3E50;
-      --bg-card: rgba(255, 255, 255, 0.98);
+      --primary: #0F172A;
+      --secondary: #1E293B;
+      --accent: #3B82F6;
+      --success: #10B981;
+      --danger: #EF4444;
+      --warning: #F59E0B;
+      --text-dark: #334155;
+      --bg-light: #F8FAFC;
     }
 
-    * {
-      box-sizing: border-box;
-      font-family: 'Tajawal', sans-serif;
-    }
+    * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
 
     body {
-      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-      margin: 0;
-      padding: 20px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      margin: 0; padding: 20px; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
 
     .app-container {
-      background: var(--bg-card);
-      border-radius: 20px;
-      padding: 35px 25px;
-      width: 100%;
-      max-width: 550px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-      margin-bottom: 25px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: #ffffff; border-radius: 24px; padding: 35px 25px;
+      width: 100%; max-width: 600px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1);
     }
 
     h2 {
-      text-align: center;
-      color: var(--text-dark);
-      margin-top: 0;
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
+      text-align: center; color: var(--text-dark); margin-top: 0;
+      font-size: 26px; font-weight: 800; letter-spacing: 0.5px;
     }
 
     .subtitle {
-      text-align: center;
-      color: #7F8C8D;
-      font-size: 14px;
-      margin-bottom: 30px;
-      font-weight: 500;
+      text-align: center; color: #64748B; font-size: 15px; margin-bottom: 30px; font-weight: 500;
     }
 
-    .search-box {
-      position: relative;
-      margin-bottom: 25px;
-    }
+    .search-box { position: relative; margin-bottom: 25px; }
 
     .search-box input {
-      width: 100%;
-      padding: 18px 50px 18px 20px;
-      font-size: 16px;
-      font-weight: 500;
-      border: 2px solid #EAECEE;
-      border-radius: 14px;
-      outline: none;
-      transition: all 0.3s ease;
-      background: #F8F9FA;
-      color: var(--text-dark);
+      width: 100%; padding: 18px 50px 18px 20px; font-size: 16px; font-weight: 500;
+      border: 2px solid #E2E8F0; border-radius: 16px; outline: none;
+      transition: all 0.3s ease; background: var(--bg-light); color: var(--text-dark);
     }
 
-    .search-box input:focus {
-      border-color: var(--highlight);
-      background: #FFF;
-      box-shadow: 0 0 20px rgba(41, 128, 185, 0.15);
-    }
+    .search-box input:focus { border-color: var(--accent); background: #FFF; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+    .search-icon { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 22px; color: var(--accent); }
 
-    .search-box input::placeholder {
-      color: #A6ACAF;
-    }
-
-    .search-icon {
-      position: absolute;
-      right: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 20px;
-      color: var(--highlight);
-    }
-
-    .results-container {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      max-height: 420px;
-      overflow-y: auto;
-      padding-right: 5px;
-    }
-
-    .results-container::-webkit-scrollbar { width: 5px; }
-    .results-container::-webkit-scrollbar-thumb { background: #BDC3C7; border-radius: 10px; }
+    .results-container { display: flex; flex-direction: column; gap: 14px; max-height: 450px; overflow-y: auto; padding-right: 5px; }
+    .results-container::-webkit-scrollbar { width: 6px; }
+    .results-container::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
 
     .course-card {
-      background: #FFF;
-      border: 1px solid #F2F3F4;
-      padding: 16px 20px;
-      border-radius: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.3s ease;
-      animation: fadeIn 0.4s ease;
-      border-right: 4px solid var(--highlight);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      background: #FFF; border: 1px solid #E2E8F0; padding: 18px 20px; border-radius: 16px;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: all 0.3s ease; animation: fadeIn 0.4s ease; border-right: 5px solid var(--accent);
     }
+    .course-card:hover { transform: translateX(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border-right-color: var(--success); }
 
-    .course-card:hover {
-      transform: translateX(-5px);
-      box-shadow: 0 8px 15px rgba(0,0,0,0.08);
-      border-right-color: var(--accent);
-    }
-
-    .course-name {
-      font-weight: 700;
-      color: var(--text-dark);
-      font-size: 16px;
-      flex: 1;
-    }
+    .course-name { font-weight: 700; color: var(--text-dark); font-size: 16px; flex: 1; }
 
     .join-btn {
-      background: var(--highlight);
-      color: white;
-      text-decoration: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      transition: all 0.3s;
-      white-space: nowrap;
-      margin-right: 15px;
-      box-shadow: 0 4px 10px rgba(41, 128, 185, 0.2);
+      background: var(--accent); color: white; text-decoration: none; padding: 10px 24px;
+      border-radius: 12px; font-size: 14px; font-weight: 700; transition: all 0.3s; white-space: nowrap; margin-right: 15px;
     }
+    .join-btn:hover { background: #2563EB; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
 
-    .join-btn:hover { 
-      background: #2471A3;
-      transform: translateY(-2px);
-    }
-
-    .no-results {
-      text-align: center;
-      padding: 30px 10px;
-      color: #7F8C8D;
-      font-size: 15px;
-      font-weight: 500;
-    }
+    .no-results { text-align: center; padding: 30px 10px; color: #64748B; font-size: 16px; font-weight: 500; }
 
     .request-btn {
-      display: inline-block;
-      margin-top: 15px;
-      background: #34495E;
-      color: #FFF;
-      padding: 12px 24px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 700;
-      transition: background 0.3s;
+      display: inline-block; margin-top: 15px; background: var(--primary); color: #FFF; border: none;
+      padding: 12px 24px; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.3s;
     }
+    .request-btn:hover { background: var(--secondary); transform: translateY(-2px); }
 
-    .request-btn:hover { background: #2C3E50; }
+    #admin-section { display: none; background: var(--bg-light); border: 1px solid #E2E8F0; border-radius: 16px; padding: 25px; margin-top: 25px; animation: fadeIn 0.4s ease; }
 
-    #admin-section {
-      display: none;
-      background: #F8F9FA;
-      border: 1px solid #EAECEE;
-      border-radius: 14px;
-      padding: 25px;
-      margin-top: 25px;
-      animation: fadeIn 0.4s ease;
-    }
+    .admin-title { color: var(--primary); text-align: center; font-size: 18px; font-weight: 800; border-bottom: 2px solid #E2E8F0; padding-bottom: 15px; margin-bottom: 20px; }
+    .admin-subtitle { color: var(--text-dark); font-size: 16px; font-weight: 700; margin-top: 25px; margin-bottom: 15px; }
 
-    .admin-title {
-      margin-top: 0;
-      color: var(--text-dark);
-      text-align: center;
-      font-size: 18px;
-      font-weight: 700;
-      border-bottom: 2px solid #EAECEE;
-      padding-bottom: 15px;
-      margin-bottom: 20px;
-    }
+    .admin-input { width: 100%; padding: 14px; margin-bottom: 12px; border: 1px solid #CBD5E1; border-radius: 12px; font-size: 15px; font-weight: 500; transition: 0.3s; }
+    .admin-input:focus { outline: none; border-color: var(--accent); }
 
-    .admin-input {
-      width: 100%;
-      padding: 14px;
-      margin-bottom: 12px;
-      border: 1px solid #D5D8DC;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 500;
-    }
+    .btn-group { display: flex; gap: 10px; }
+    .save-btn { flex: 1; padding: 14px; background: var(--success); color: white; border: none; border-radius: 12px; font-size: 15px; cursor: pointer; font-weight: 700; transition: 0.3s; }
+    .save-btn:hover { background: #059669; }
+    .cancel-btn { display: none; padding: 14px 20px; background: #94A3B8; color: white; border: none; border-radius: 12px; font-size: 15px; cursor: pointer; font-weight: 700; transition: 0.3s; }
+    .cancel-btn:hover { background: #64748B; }
 
-    .admin-input:focus {
-      outline: none;
-      border-color: var(--highlight);
-    }
+    .admin-list { margin-top: 15px; }
+    .admin-item { display: flex; justify-content: space-between; align-items: center; background: #FFF; padding: 14px 15px; border-radius: 12px; margin-bottom: 10px; font-size: 15px; font-weight: 600; border: 1px solid #E2E8F0; }
+    
+    .action-btns { display: flex; gap: 8px; }
+    .edit-btn { background: var(--warning); color: #FFF; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13px; transition: 0.2s; }
+    .edit-btn:hover { background: #D97706; }
+    .del-btn { background: var(--danger); color: #FFF; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13px; transition: 0.2s; }
+    .del-btn:hover { background: #DC2626; }
+    .finish-btn { background: var(--success); color: #FFF; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13px; transition: 0.2s; }
+    .finish-btn:hover { background: #059669; }
 
-    .save-btn {
-      width: 100%;
-      padding: 14px;
-      background: var(--text-dark);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: background 0.3s;
-    }
+    .req-item { background: #FEF3C7; border-color: #FDE68A; }
 
-    .save-btn:hover { background: #1A252F; }
-
-    .admin-list { margin-top: 20px; }
-
-    .admin-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #FFF;
-      padding: 12px 15px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      font-size: 15px;
-      font-weight: 500;
-      border: 1px solid #EAECEE;
-    }
-
-    .del-btn { 
-      background: #E74C3C; 
-      color: #FFF; 
-      border: none; 
-      padding: 8px 15px; 
-      border-radius: 8px; 
-      cursor: pointer; 
-      font-weight: 700;
-      font-size: 13px;
-    }
-
-    .footer {
-      width: 100%;
-      max-width: 550px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 15px;
-      color: rgba(255,255,255,0.8);
-      font-size: 14px;
-    }
-
-    .creator-badge {
-      font-weight: 500;
-      letter-spacing: 0.5px;
-    }
-
-    .creator-badge span { 
-      color: #F1C40F; 
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    .admin-trigger {
-      background: none;
-      border: none;
-      font-size: 22px;
-      cursor: pointer;
-      color: rgba(255,255,255,0.6);
-      transition: all 0.4s ease;
-    }
-
-    .admin-trigger:hover { 
-      transform: rotate(180deg); 
-      color: #FFF; 
-    }
+    .footer { width: 100%; max-width: 600px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; color: rgba(255,255,255,0.8); font-size: 14px; }
+    .creator-badge { font-weight: 500; letter-spacing: 0.5px; }
+    .creator-badge span { color: #FBBF24; font-weight: 800; letter-spacing: 1px; }
+    
+    .admin-trigger { background: none; border: none; font-size: 24px; cursor: pointer; color: rgba(255,255,255,0.6); transition: all 0.4s ease; }
+    .admin-trigger:hover { transform: rotate(180deg); color: #FFF; }
 
     @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    @media (max-width: 450px) {
-      .course-card { flex-direction: column; text-align: center; gap: 15px; border-right: none; border-top: 4px solid var(--highlight); }
+    @media (max-width: 480px) {
+      .course-card { flex-direction: column; text-align: center; gap: 15px; border-right: none; border-top: 5px solid var(--accent); }
       .join-btn { width: 100%; margin: 0; }
-      .search-box input { padding-right: 45px; }
-      h2 { font-size: 20px; }
+      .admin-item { flex-direction: column; gap: 10px; align-items: stretch; text-align: center; }
     }
   </style>
 </head>
 <body>
 
   <div class="app-container">
-    <h2>الدليل الأكاديمي لمجموعات التواصل</h2>
+    <h2>جروبات المواد</h2>
     <div class="subtitle">كلية تكنولوجيا المعلومات</div>
     
     <div class="search-box">
@@ -317,11 +140,19 @@
     </div>
 
     <div id="admin-section">
-      <div class="admin-title">لوحة تحكم الإدارة</div>
-      <input type="text" id="newCourseName" class="admin-input" placeholder="اسم المساق الأكاديمي">
-      <input type="url" id="newCourseLink" class="admin-input" placeholder="رابط مجموعة التواصل">
-      <button class="save-btn" onclick="addOrUpdateCourse()">حفظ بيانات المساق</button>
+      <div class="admin-title">لوحة تحكم الإدارة الشاملة</div>
       
+      <input type="text" id="newCourseName" class="admin-input" placeholder="اسم المساق الأكاديمي">
+      <input type="url" id="newCourseLink" class="admin-input" placeholder="رابط مجموعة التواصل (WhatsApp)">
+      <div class="btn-group">
+        <button class="save-btn" id="saveBtn" onclick="addOrUpdateCourse()">إضافة مساق جديد</button>
+        <button class="cancel-btn" id="cancelBtn" onclick="cancelEdit()">إلغاء التعديل</button>
+      </div>
+      
+      <div class="admin-subtitle">طلبات إضافة المساقات الجديدة:</div>
+      <div class="admin-list" id="requestsList"></div>
+
+      <div class="admin-subtitle">إدارة المساقات الحالية:</div>
       <div class="admin-list" id="adminList"></div>
     </div>
   </div>
@@ -338,25 +169,33 @@
     const sql = neon(DATABASE_URL);
     
     let allCourses = [];
+    let allRequests = [];
+    let editingOldName = null;
 
     window.fetchCourses = async function() {
       try {
         const rows = await sql`SELECT name, link FROM courses ORDER BY name ASC`;
         allCourses = rows;
         renderResults(allCourses);
-        if(document.getElementById('admin-section').style.display === 'block') renderAdminList();
+        if(document.getElementById('admin-section').style.display === 'block') {
+          renderAdminList();
+          fetchRequests();
+        }
       } catch (error) {
-        document.getElementById("resultsList").innerHTML = `<div class="no-results" style="color:#E74C3C;">عذراً، تعذر الاتصال بقاعدة البيانات.</div>`;
+        document.getElementById("resultsList").innerHTML = `<div class="no-results" style="color:#DC2626;">عذراً، تعذر الاتصال بقاعدة البيانات.</div>`;
       }
+    }
+
+    window.fetchRequests = async function() {
+      try {
+        allRequests = await sql`SELECT id, course_name FROM requests ORDER BY created_at DESC`;
+        renderRequestsList();
+      } catch (e) { console.error("لم يتم العثور على جدول الطلبات", e); }
     }
 
     window.handleSearch = function() {
       const query = document.getElementById("searchInput").value.trim().toLowerCase();
-      
-      if (query === "") {
-        renderResults(allCourses);
-        return;
-      }
+      if (query === "") { renderResults(allCourses); return; }
 
       const filtered = allCourses.filter(course => course.name.toLowerCase().includes(query));
       
@@ -366,92 +205,105 @@
         document.getElementById("resultsList").innerHTML = `
           <div class="no-results">
             لم يتم العثور على مساق بهذا الاسم.<br>
-            <a href="https://wa.me/962787260414?text=مرحباً،%20أرغب%20بإضافة%20مساق%20(${encodeURIComponent(query)})%20إلى%20الدليل" target="_blank" class="request-btn">تقديم طلب إضافة مساق للإدارة</a>
+            <button class="request-btn" onclick="submitRequest('${query}')">إرسال طلب لإضافة المساق للآدمن</button>
           </div>
         `;
       }
+    }
+
+    window.submitRequest = async function(courseName) {
+      try {
+        await sql`INSERT INTO requests (course_name) VALUES (${courseName})`;
+        alert("تم إرسال طلب إضافة المساق بنجاح! سيتم مراجعته من قبل الإدارة.");
+        document.getElementById("searchInput").value = '';
+        renderResults(allCourses);
+      } catch (error) { alert("حدث خطأ أثناء إرسال الطلب."); }
     }
 
     function renderResults(coursesArray) {
       const container = document.getElementById("resultsList");
       container.innerHTML = "";
-      
-      if(coursesArray.length === 0) {
-          container.innerHTML = `<div class="no-results">لا يوجد مساقات مدرجة حتى الآن.</div>`;
-          return;
-      }
-
+      if(coursesArray.length === 0) { container.innerHTML = `<div class="no-results">لا يوجد مساقات مدرجة حتى الآن.</div>`; return; }
       coursesArray.forEach(course => {
-        container.innerHTML += `
-          <div class="course-card">
-            <div class="course-name">${course.name}</div>
-            <a href="${course.link}" target="_blank" class="join-btn">الانضمام للمجموعة</a>
-          </div>
-        `;
+        container.innerHTML += `<div class="course-card"><div class="course-name">${course.name}</div><a href="${course.link}" target="_blank" class="join-btn">الانضمام للمجموعة</a></div>`;
       });
     }
 
     window.toggleAdmin = function() {
       const adminSec = document.getElementById("admin-section");
-      if (adminSec.style.display === "block") {
-        adminSec.style.display = "none";
-        return;
-      }
-      const pass = prompt("الرجاء إدخال رمز المرور الخاص بالإدارة:");
+      if (adminSec.style.display === "block") { adminSec.style.display = "none"; return; }
+      const pass = prompt("الرجاء إدخال رمز المرور السري:");
       if (pass === "MOHA12022") {
         adminSec.style.display = "block";
-        renderAdminList();
-      } else if (pass !== null) {
-        alert("رمز المرور غير صحيح.");
-      }
+        renderAdminList(); fetchRequests();
+      } else if (pass !== null) { alert("رمز المرور غير صحيح."); }
+    }
+
+    function renderRequestsList() {
+      const list = document.getElementById("requestsList");
+      list.innerHTML = "";
+      if(allRequests.length === 0) { list.innerHTML = `<div style="text-align:center; color:#64748B; font-size:14px;">لا توجد طلبات جديدة حالياً.</div>`; return; }
+      allRequests.forEach(req => {
+        list.innerHTML += `<div class="admin-item req-item"><span>${req.course_name}</span><button class="finish-btn" onclick="finishRequest(${req.id}, '${req.course_name}')">إنهاء الطلب وحذفه</button></div>`;
+      });
     }
 
     function renderAdminList() {
       const list = document.getElementById("adminList");
       list.innerHTML = "";
       allCourses.forEach(course => {
-        list.innerHTML += `
-          <div class="admin-item">
-            <span>${course.name}</span>
-            <button class="del-btn" onclick="deleteCourse('${course.name}')">حذف</button>
-          </div>
-        `;
+        list.innerHTML += `<div class="admin-item"><span>${course.name}</span><div class="action-btns"><button class="edit-btn" onclick="editCourse('${course.name}', '${course.link}')">تعديل</button><button class="del-btn" onclick="deleteCourse('${course.name}')">حذف</button></div></div>`;
       });
+    }
+
+    window.editCourse = function(name, link) {
+      editingOldName = name;
+      document.getElementById("newCourseName").value = name;
+      document.getElementById("newCourseLink").value = link;
+      document.getElementById("saveBtn").innerText = "حفظ التعديلات";
+      document.getElementById("saveBtn").style.background = "var(--warning)";
+      document.getElementById("cancelBtn").style.display = "block";
+      document.getElementById("newCourseName").focus();
+    }
+
+    window.cancelEdit = function() {
+      editingOldName = null;
+      document.getElementById("newCourseName").value = '';
+      document.getElementById("newCourseLink").value = '';
+      document.getElementById("saveBtn").innerText = "إضافة مساق جديد";
+      document.getElementById("saveBtn").style.background = "var(--success)";
+      document.getElementById("cancelBtn").style.display = "none";
     }
 
     window.addOrUpdateCourse = async function() {
       const name = document.getElementById("newCourseName").value.trim();
       const link = document.getElementById("newCourseLink").value.trim();
-      if (!name || !link) return alert("الرجاء إدخال البيانات المطلوبة كاملة.");
-
-      const btn = document.querySelector(".save-btn");
-      btn.innerText = "جاري تحديث البيانات...";
-      
+      if (!name || !link) return alert("الرجاء إدخال البيانات كاملة.");
+      const btn = document.getElementById("saveBtn"); btn.innerText = "جاري الحفظ...";
       try {
-        await sql`INSERT INTO courses (name, link) VALUES (${name}, ${link}) ON CONFLICT (name) DO UPDATE SET link = EXCLUDED.link`;
-        document.getElementById("newCourseName").value = '';
-        document.getElementById("newCourseLink").value = '';
-        await window.fetchCourses();
-        document.getElementById("searchInput").value = '';
-      } catch (error) {
-        alert("حدث خطأ أثناء حفظ البيانات.");
-      } finally {
-        btn.innerText = "حفظ بيانات المساق";
-      }
+        if (editingOldName) {
+          await sql`UPDATE courses SET name = ${name}, link = ${link} WHERE name = ${editingOldName}`;
+        } else {
+          await sql`INSERT INTO courses (name, link) VALUES (${name}, ${link}) ON CONFLICT (name) DO UPDATE SET link = EXCLUDED.link`;
+        }
+        cancelEdit(); await window.fetchCourses();
+      } catch (error) { alert("حدث خطأ! تأكد من عدم تكرار الاسم."); } 
+      finally { if(!editingOldName) btn.innerText = "إضافة مساق جديد"; }
     }
 
     window.deleteCourse = async function(courseName) {
       if (!confirm(`هل أنت متأكد من حذف مساق: ${courseName}؟`)) return;
-      try {
-        await sql`DELETE FROM courses WHERE name = ${courseName}`;
-        await window.fetchCourses();
-      } catch (error) {
-        alert("حدث خطأ أثناء الحذف.");
-      }
+      try { await sql`DELETE FROM courses WHERE name = ${courseName}`; await window.fetchCourses(); } 
+      catch (error) { alert("حدث خطأ أثناء الحذف."); }
+    }
+
+    window.finishRequest = async function(id, name) {
+      if (!confirm(`هل أضفت مساق (${name}) وتريد إخفاء هذا الطلب؟`)) return;
+      try { await sql`DELETE FROM requests WHERE id = ${id}`; await window.fetchRequests(); } 
+      catch (error) { alert("حدث خطأ أثناء إنهاء الطلب."); }
     }
 
     window.onload = window.fetchCourses;
   </script>
 </body>
 </html>
-
